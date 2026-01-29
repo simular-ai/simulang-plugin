@@ -1,0 +1,55 @@
+{
+  "name": "simulang",
+  "displayName": "Simulang",
+  "description": "Automate desktop tasks using Simulang, a JavaScript-based DSL for Simular Pro. Enables keyboard, mouse, perception, and application control through natural language-like functions.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Simular",
+    "email": "support@simular.ai",
+    "url": "https://simular.ai"
+  },
+  "repository": "https://github.com/simular-ai/simulang-plugin",
+  "license": "MIT",
+  "categories": ["Automation", "Desktop", "Productivity"],
+  "tags": [
+    "desktop-automation",
+    "simulang",
+    "simular-pro",
+    "keyboard",
+    "mouse",
+    "web-scraping",
+    "browser-automation"
+  ],
+  "skills": ["simulang"],
+  "features": [
+    "Control keyboard and mouse actions",
+    "Interact with desktop applications",
+    "Extract content from screens using AI perception",
+    "Automate web browsing and form filling",
+    "Read/write files and Google Sheets"
+  ],
+  "requirements": {
+    "claudeCode": ">=1.0.0",
+    "platform": ["darwin", "win32"],
+    "externalApps": ["Simular Pro"]
+  },
+  "documentation": {
+    "readme": "README.md",
+    "reference": "skills/simulang/reference.md",
+    "examples": "skills/simulang/examples.md"
+  },
+  "links": {
+    "homepage": "https://simular.ai",
+    "documentation": "https://docs.simular.ai/simular-pro/simulang",
+    "support": "https://simular.ai/support",
+    "changelog": "https://github.com/simular-ai/simulang-plugin/blob/main/CHANGELOG.md"
+  },
+  "keywords": [
+    "automation",
+    "desktop",
+    "rpa",
+    "browser",
+    "scraping",
+    "workflow"
+  ]
+}
