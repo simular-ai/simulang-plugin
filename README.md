@@ -15,7 +15,7 @@ A Claude Code plugin for automating desktop tasks using Simulang, a JavaScript-b
 Add this plugin to your Claude Code configuration:
 
 ```bash
-claude plugins add /path/to/simulang-plugin
+claude plugins add https://github.com/simular-ai/simulang-plugin
 ```
 
 ## Usage
