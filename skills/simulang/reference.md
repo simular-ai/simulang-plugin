@@ -4,6 +4,143 @@ Complete API documentation for Simulang. See [official docs](https://docs.simula
 
 ---
 
+## Background Browser Control
+
+The background browser API enables parallel web automation without requiring GUI focus. All operations are async and must be awaited.
+
+### browser.newtab
+
+Create a new browser tab and navigate to a URL.
+
+```javascript
+var page = await browser.newtab("https://example.com")
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | String | URL to navigate to |
+
+**Returns:** Page object with methods for interaction
+
+---
+
+### page.click
+
+Click on a UI element identified by a concept description.
+
+```javascript
+await page.click({ concept: "sign in button" })
+await page.click({ concept: "search input field" })
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `concept` | String | Description of the element to click |
+
+---
+
+### page.type
+
+Type text into the currently focused element.
+
+```javascript
+await page.type({ text: "search query" })
+await page.type({ text: "username", withReturn: true })
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `text` | String | Text to type |
+| `withReturn` | Bool | Press Enter/Return after typing |
+
+---
+
+### page.press
+
+Press a key or key combination.
+
+```javascript
+await page.press({ key: "Enter" })
+await page.press({ key: "cmd+a" })
+await page.press({ key: "shift+tab" })
+await page.press({ key: "ArrowDown" })
+await page.press({ key: "Backspace" })
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `key` | String | Key or key combination (e.g., "Enter", "cmd+a", "shift+tab") |
+
+---
+
+### page.wait
+
+Pause execution for a specified duration.
+
+```javascript
+await page.wait({ waitTime: 2 })  // 2 seconds
+await page.wait({ waitTime: 5 })  // 5 seconds
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `waitTime` | Number | Seconds to wait |
+
+---
+
+### page.content
+
+Get the text content of the current page.
+
+```javascript
+var content = await page.content()
+console.log(content)
+```
+
+**Returns:** String containing the page's text content
+
+---
+
+### page.scroll
+
+Scroll the page in a specified direction.
+
+```javascript
+await page.scroll({ direction: "down", distance: 500 })
+await page.scroll({ direction: "up", distance: 200 })
+await page.scroll({ direction: "left", distance: 100, behavior: "smooth" })
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `direction` | String | "up", "down", "left", or "right" |
+| `distance` | Number | Pixels to scroll |
+| `behavior` | String | "auto", "instant" (default), or "smooth" |
+
+---
+
+### page.ask
+
+Query an LLM about content with a prompt.
+
+```javascript
+var content = await page.content()
+var response = await page.ask({
+    prompt: "Summarize the main points",
+    context: { text: content }
+})
+console.log(response)
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `prompt` | String | Question or instruction for the LLM |
+| `context.text` | String | Text context to analyze |
+
+**Returns:** String response from the model
+
+---
+
 ## General
 
 ### act

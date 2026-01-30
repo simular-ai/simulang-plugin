@@ -4,6 +4,149 @@ Reference examples for common Simulang workflows. See [full documentation](https
 
 ---
 
+## Background Browser: Parallel Web Research
+
+### Fetch and Summarize Multiple News Sources
+
+```javascript
+async function main() {
+    try {
+        const urls = [
+            "https://news.google.com/",
+            "https://www.bbc.com/news",
+            "https://www.reuters.com/",
+            "https://www.cnn.com/"
+        ];
+
+        // Open all pages in parallel
+        const pages = await Promise.all(urls.map(async (u) => {
+            const p = await browser.newtab(u);
+            await p.wait({ waitTime: 2 });
+            return p;
+        }));
+
+        // Fetch content from all pages
+        const contents = await Promise.all(pages.map(async (p, i) => {
+            try {
+                await p.wait({ waitTime: 1 });
+                const text = await p.content();
+                return { url: urls[i], text };
+            } catch (e) {
+                console.log("content error:", urls[i], e);
+                return { url: urls[i], text: "" };
+            }
+        }));
+
+        // Combine and summarize
+        const combinedText = contents
+            .map((c, idx) => `### Source ${idx + 1}: ${c.url}\n${c.text || ""}`)
+            .join("\n\n");
+
+        const summary = await pages[0].ask({
+            prompt: "Summarize the key headlines across all sources. Focus on consensus and important divergences.",
+            context: { text: combinedText }
+        });
+
+        console.log(summary);
+    } catch (err) {
+        console.log("Error:", err);
+    }
+}
+```
+
+### Simple LinkedIn Feed Summary
+
+```javascript
+async function main() {
+    var page = await browser.newtab('https://www.linkedin.com/feed/')
+    await page.wait({ waitTime: 3 })
+    var content = await page.content()
+    var response = await page.ask({
+        prompt: 'Summarize the top posts and discussions',
+        context: { text: content }
+    })
+    console.log(response)
+}
+```
+
+### Search and Extract with Google
+
+```javascript
+async function main() {
+    var page = await browser.newtab('https://www.google.com/search?q=latest+AI+news')
+    await page.wait({ waitTime: 2 })
+    var content = await page.content()
+
+    var summary = await page.ask({
+        prompt: 'Extract the top 5 search results with titles and brief descriptions. Return as a numbered list.',
+        context: { text: content }
+    })
+
+    console.log(summary)
+}
+```
+
+### Interactive Form Automation
+
+```javascript
+async function main() {
+    var page = await browser.newtab('https://example.com/signup')
+    await page.wait({ waitTime: 2 })
+
+    await page.click({ concept: 'email input field' })
+    await page.type({ text: 'user@example.com' })
+
+    await page.click({ concept: 'password input field' })
+    await page.type({ text: 'securePassword123' })
+
+    await page.click({ concept: 'submit button' })
+    await page.wait({ waitTime: 3 })
+
+    var content = await page.content()
+    var result = await page.ask({
+        prompt: 'Did the signup succeed? What message is shown?',
+        context: { text: content }
+    })
+
+    console.log(result)
+}
+```
+
+### Multi-Site Price Comparison
+
+```javascript
+async function main() {
+    const product = "MacBook Pro 14"
+    const sites = [
+        `https://www.amazon.com/s?k=${encodeURIComponent(product)}`,
+        `https://www.bestbuy.com/site/searchpage.jsp?st=${encodeURIComponent(product)}`,
+        `https://www.walmart.com/search?q=${encodeURIComponent(product)}`
+    ]
+
+    const pages = await Promise.all(sites.map(url => browser.newtab(url)))
+    await Promise.all(pages.map(p => p.wait({ waitTime: 3 })))
+
+    const results = await Promise.all(pages.map(async (p, i) => {
+        const content = await p.content()
+        const prices = await p.ask({
+            prompt: `Extract the top 3 product listings with names and prices for "${product}". Return as JSON array.`,
+            context: { text: content }
+        })
+        return { site: sites[i], data: prices }
+    }))
+
+    // Final comparison
+    const comparison = await pages[0].ask({
+        prompt: 'Compare prices across all sites and recommend the best deal.',
+        context: { text: JSON.stringify(results) }
+    })
+
+    console.log(comparison)
+}
+```
+
+---
+
 ## Reading Structured Information
 
 ### Extract Discord Server Names
