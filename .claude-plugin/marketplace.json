@@ -2,35 +2,28 @@
   "name": "simular-plugins",
   "owner": {
     "name": "Simular",
-    "email": "support@simular.ai",
-    "url": "https://simular.ai"
+    "email": "support@simular.ai"
+  },
+  "metadata": {
+    "description": "Official plugins from Simular for desktop automation"
   },
   "plugins": [
     {
       "name": "simulang",
-      "description": "Automate desktop tasks using Simulang, a JavaScript-based DSL for Simular Pro. Enables keyboard, mouse, perception, and application control through natural language-like functions.",
-      "version": "1.0.0",
       "source": {
-        "type": "git",
-        "url": "https://github.com/simular-ai/simulang-plugin"
+        "source": "github",
+        "repo": "simular-ai/simulang-plugin"
+      },
+      "description": "Automate desktop tasks using Simulang, a JavaScript-based DSL for Simular Pro.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Simular",
+        "email": "support@simular.ai"
       },
       "repository": "https://github.com/simular-ai/simulang-plugin",
       "license": "MIT",
-      "tags": [
-        "desktop-automation",
-        "simulang",
-        "simular-pro",
-        "keyboard",
-        "mouse",
-        "web-scraping",
-        "browser-automation"
-      ],
-      "skills": [
-        {
-          "name": "simulang",
-          "description": "Automate desktop tasks using Simulang"
-        }
-      ]
+      "keywords": ["desktop-automation", "simulang", "browser-automation"],
+      "strict": false
     }
   ]
 }
