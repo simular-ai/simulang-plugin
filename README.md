@@ -12,11 +12,19 @@ A Claude Code plugin for automating desktop tasks using Simulang, a JavaScript-b
 
 ## Installation
 
-Add this plugin to your Claude Code configuration:
+1. Add this marketplace to your Claude Code configuration:
 
 ```bash
-claude plugins add https://github.com/simular-ai/simulang-plugin
+claude plugin marketplace add https://github.com/simular-ai/simulang-plugin.git
 ```
+
+2. Open Claude and install this skill with the command:
+
+```bash
+/plugin install simulang
+```
+
+3. Depending on the scope of installation you choose (e.g. user scope), you may need to restart Claude
 
 ## Usage
 
